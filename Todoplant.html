@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TodoPlant - Garden</title>
+  <link rel="stylesheet" href="global.css">
+</head>
+<body>
+<div class="phone">
+  <div class="sbar"><span>9:41</span><span>KEBUN TANAMAN</span><span>⚡ 100%</span></div>
+  <div class="toast" id="toast"></div>
+
+  <div class="scr">
+    <div class="topbar">
+      <button class="tbadge" onclick="goTo('mainScreen.html')">← Kembali</button>
+      <div class="tbadge">🪣 Batas Siram: <span id="global-water-charge">0</span></div>
+    </div>
+
+    <div style="text-align:center; margin-top:20px">
+      <h2 id="stage-title" style="color:var(--text)">🌱 Benih</h2>
+      <p style="font-size:12px; color:var(--muted)">Selesaikan seluruh tugas harian untuk membuka kunci penyiraman.</p>
+    </div>
+
+    <div class="plant-circle">
+      <svg id="plant-core" viewBox="0 0 100 100" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 70 L70 70 L65 95 L35 95 Z" fill="#8B5E3C"/>
+        <rect x="25" y="62" width="50" height="8" fill="#A06D44" rx="2"/>
+        <g id="plant-leaves"></g>
+      </svg>
+    </div>
+
+    <button class="water-btn" id="btn-water" onclick="executeWatering()">Siram Tanaman (+20 XP)</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  const stages = [
+    { name: '🌱 Benih Tiny', svg: `<circle cx="50" cy="60" r="4" fill="#4e8c3a"/>` },
+    { name: '🌿 Tunas Muda', svg: `<path d="M50 62 Q45 40 35 45 M50 62 Q55 35 65 40" stroke="#4e8c3a" stroke-width="4" fill="none"/>` },
+    { name: '🌳 Pohon Berdaun', svg: `<path d="M50 62 L50 30" stroke="#8B5E3C" stroke-width="5"/><circle cx="50" cy="25" r="15" fill="#4e8c3a"/><circle cx="40" cy="30" r="10" fill="#4e8c3a"/>` }
+  ];
+
+  function drawPlant() {
+    const stage = Math.min(S.plantStage, stages.length - 1);
+    document.getElementById('stage-title').textContent = stages[stage].name;
+    document.getElementById('plant-leaves').innerHTML = stages[stage].svg;
+    
+    // Tombol aktif HANYA jika memiliki watering charge dari tugas yang selesai semua
+    document.getElementById('btn-water').disabled = S.wateringCharges <= 0;
+  }
+
+  function executeWatering() {
+    if (S.wateringCharges > 0) {
+      S.wateringCharges -= 1;
+      S.plantXp += 20;
+      if (S.plantXp >= 40 && S.plantStage < 2) {
+        S.plantStage += 1;
+        S.plantXp = 0;
+        showToast('🎉 Tanamanmu Berhasil Tumbuh!');
+      } else {
+        showToast('💧 Tanaman Berhasil Disiram!');
+      }
+      saveState();
+      syncGlobalStats();
+      drawPlant();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    syncGlobalStats();
+    drawPlant();
+  });
+</script>
+</body>
+</html>

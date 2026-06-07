@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TodoPlant - Lemari Kostum</title>
+  <link rel="stylesheet" href="global.css">
+</head>
+<body>
+<div class="phone">
+  <div class="sbar"><span>9:41</span><span>LEMARI TOKO</span><span>⚡ 100%</span></div>
+  <div class="toast" id="toast"></div>
+
+  <div class="scr">
+    <div class="topbar">
+      <button class="tbadge" onclick="goTo('mainScreen.html')">← Selesai</button>
+      <div class="tbadge">🪙 <span id="global-coin">0</span></div>
+    </div>
+
+    <div class="cust-avatar-box" style="margin-bottom:12px;">
+      <svg class="avatar-svg" id="avatar-cust" viewBox="0 0 110 180" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <div class="tabs">
+      <div class="tab on" id="tb-c1" onclick="loadSubCat('sub/subscreen_outfitcat1.html', 'tb-c1')">Shoes</div>
+      <div class="tab" id="tb-c2" onclick="loadSubCat('sub/subscreen_outfitcat2.html', 'tb-c2')">Shirt</div>
+      <div class="tab" id="tb-c3" onclick="loadSubCat('sub/subscreen_outfitcat3.html', 'tb-c3')">Aksesoris</div>
+    </div>
+
+    <iframe class="sub-frame" id="shop-frame" src="sub/subscreen_outfitcat1.html"></iframe>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  function loadSubCat(url, tabId) {
+    document.getElementById('shop-frame').src = url;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    document.getElementById(tabId).classList.add('on');
+  }
+
+  // Dipanggil oleh sub-iframe untuk sinkronisasi ulang tampilan baju karakter utama
+  window.reloadAvatarWrapper = function() {
+    renderAvatar('avatar-cust');
+    syncGlobalStats();
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAvatar('avatar-cust');
+    syncGlobalStats();
+  });
+</script>
+</body>
+</html>
