@@ -3,74 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>TodoPlant - Garden</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="global.css">
+  <style>
+    .plant-circle { width: 200px; height: 200px; background: rgba(255,255,255,0.6); border: 3px solid rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 40px auto; }
+  </style>
 </head>
 <body>
 <div class="phone">
-  <div class="sbar"><span>9:41</span><span>KEBUN TANAMAN</span><span>⚡ 100%</span></div>
+  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">KEBUN TANAMAN</span><span>⚡ 100%</span></div>
   <div class="toast" id="toast"></div>
 
   <div class="scr">
     <div class="topbar">
-      <button class="tbadge" onclick="goTo('mainScreen.html')">← Kembali</button>
-      <div class="tbadge">🪣 Batas Siram: <span id="global-water-charge">0</span></div>
+      <button class="tbadge" style="border:none;" onclick="goTo('mainScreen.html')">← Kembali</button>
+      <div class="tbadge">🪣 Siram: <span id="global-water-charge">0</span></div>
     </div>
 
-    <div style="text-align:center; margin-top:20px">
-      <h2 id="stage-title" style="color:var(--text)">🌱 Benih</h2>
-      <p style="font-size:12px; color:var(--muted)">Selesaikan seluruh tugas harian untuk membuka kunci penyiraman.</p>
+    <div style="text-align:center; margin-top:10px">
+      <h2 id="stage-title" style="color:var(--text); font-weight:900;">🌱 Benih</h2>
+      <p style="font-size:13px; color:var(--muted); font-weight:700; margin-top:8px;">Selesaikan tugas harian untuk menyiram.</p>
     </div>
 
     <div class="plant-circle">
-      <svg id="plant-core" viewBox="0 0 100 100" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30 70 L70 70 L65 95 L35 95 Z" fill="#8B5E3C"/>
-        <rect x="25" y="62" width="50" height="8" fill="#A06D44" rx="2"/>
+      <svg id="plant-core" viewBox="0 0 100 100" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25 70 L75 70 L65 100 L35 100 Z" fill="#8B5E3C"/>
+        <rect x="20" y="60" width="60" height="10" fill="#A06D44" rx="4"/>
         <g id="plant-leaves"></g>
       </svg>
     </div>
-
-    <button class="water-btn" id="btn-water" onclick="executeWatering()">Siram Tanaman (+20 XP)</button>
+    <button class="btn-add-main" id="btn-water" style="background:var(--green); margin-top:auto;" onclick="executeWatering()">Siram Tanaman (+20 XP)</button>
   </div>
 </div>
-
 <script src="script.js"></script>
 <script>
   const stages = [
-    { name: '🌱 Benih Tiny', svg: `<circle cx="50" cy="60" r="4" fill="#4e8c3a"/>` },
-    { name: '🌿 Tunas Muda', svg: `<path d="M50 62 Q45 40 35 45 M50 62 Q55 35 65 40" stroke="#4e8c3a" stroke-width="4" fill="none"/>` },
-    { name: '🌳 Pohon Berdaun', svg: `<path d="M50 62 L50 30" stroke="#8B5E3C" stroke-width="5"/><circle cx="50" cy="25" r="15" fill="#4e8c3a"/><circle cx="40" cy="30" r="10" fill="#4e8c3a"/>` }
+    { name: '🌱 Benih Tiny', svg: `<circle cx="50" cy="55" r="5" fill="#4e8c3a"/>` },
+    { name: '🌿 Tunas Muda', svg: `<path d="M50 60 Q40 35 25 40 M50 60 Q60 30 75 35" stroke="#4e8c3a" stroke-width="5" fill="none" stroke-linecap="round"/>` },
+    { name: '🌳 Pohon Lebat', svg: `<path d="M50 60 L50 25" stroke="#8B5E3C" stroke-width="6" stroke-linecap="round"/><circle cx="50" cy="20" r="18" fill="#4e8c3a"/><circle cx="35" cy="28" r="12" fill="#4e8c3a"/><circle cx="65" cy="28" r="12" fill="#4e8c3a"/>` }
   ];
-
   function drawPlant() {
     const stage = Math.min(S.plantStage, stages.length - 1);
     document.getElementById('stage-title').textContent = stages[stage].name;
     document.getElementById('plant-leaves').innerHTML = stages[stage].svg;
-    
-    // Tombol aktif HANYA jika memiliki watering charge dari tugas yang selesai semua
-    document.getElementById('btn-water').disabled = S.wateringCharges <= 0;
-  }
-
-  function executeWatering() {
-    if (S.wateringCharges > 0) {
-      S.wateringCharges -= 1;
-      S.plantXp += 20;
-      if (S.plantXp >= 40 && S.plantStage < 2) {
-        S.plantStage += 1;
-        S.plantXp = 0;
-        showToast('🎉 Tanamanmu Berhasil Tumbuh!');
-      } else {
-        showToast('💧 Tanaman Berhasil Disiram!');
-      }
-      saveState();
-      syncGlobalStats();
-      drawPlant();
+    const btn = document.getElementById('btn-water');
+    if (S.wateringCharges <= 0) {
+      btn.disabled = true; btn.style.background = 'var(--muted)'; btn.style.boxShadow = 'none'; btn.style.cursor = 'not-allowed';
+    } else {
+      btn.disabled = false; btn.style.background = 'var(--green)'; btn.style.boxShadow = '0 10px 25px rgba(88, 160, 66, 0.3)'; btn.style.cursor = 'pointer';
     }
   }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    syncGlobalStats();
-    drawPlant();
-  });
+  function executeWatering() {
+    if (S.wateringCharges > 0) {
+      S.wateringCharges -= 1; S.plantXp += 20;
+      if (S.plantXp >= 40 && S.plantStage < 2) { S.plantStage += 1; S.plantXp = 0; }
+      saveState(); location.reload();
+    }
+  }
+  document.addEventListener('DOMContentLoaded', () => { syncGlobalStats(); drawPlant(); });
 </script>
 </body>
 </html>

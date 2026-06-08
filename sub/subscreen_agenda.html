@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda Kalender</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../global.css">
+  <style>
+    .cal-header {
+      display: flex; justify-content: space-between; padding: 8px 16px;
+      border: 2px solid #5C3A1E; border-radius: 20px; margin-bottom: 16px;
+      font-size: 13px; font-weight: 900; color: #5C3A1E; background: transparent;
+    }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;
+      text-align: center; margin-bottom: 20px;
+    }
+    .cal-day {
+      font-size: 14px; font-weight: 900; color: var(--text); padding: 8px 0;
+      cursor: pointer; border-radius: 12px; transition: all 0.2s;
+    }
+    .cal-day:hover { background: rgba(0,0,0,0.05); }
+    .cal-day.active { background: var(--text); color: white; }
+    .cal-day.has-event { border-bottom: 3px solid #8B5E3C; }
+    .cal-day.muted { color: var(--muted); opacity: 0.5; }
+
+    .agenda-box {
+      background: #8B5E3C; color: white; border-radius: 20px;
+      padding: 20px; min-height: 120px; font-size: 13px; font-weight: 800;
+      box-shadow: 0 10px 20px rgba(139, 94, 60, 0.3);
+    }
+    .agenda-box ul { padding-left: 20px; margin-top: 10px; line-height: 1.8; }
+    
+    .type-input {
+      display: flex; align-items: center; background: white; border-radius: 24px;
+      padding: 10px 16px; border: 1.5px solid var(--border); margin-top: 20px;
+    }
+    .type-input input { flex: 1; border: none; outline: none; font-family: var(--font); font-size: 14px; font-weight: 700; color: var(--text); }
+    .type-input .icons { font-size: 18px; color: var(--text); display: flex; gap: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<div class="phone">
+  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">AGENDA</span><span>⚡ 100%</span></div>
+  
+  <div class="scr" style="padding-top:10px;">
+    <div class="topbar">
+      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">← Menu</button>
+      <h3 style="color:var(--text); font-size:15px; font-weight:900;">Juni 2026</h3>
+      <div style="width:60px;"></div>
+    </div>
+
+    <div class="cal-header">
+      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+    </div>
+
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <div class="agenda-box" id="agenda-box">
+      Pilih tanggal untuk melihat jadwal.
+    </div>
+
+    <div class="type-input">
+      <input type="text" placeholder="Type">
+      <div class="icons"><span>🎤</span><span>🚀</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="../script.js"></script>
+<script>
+  // Data Mockup Spesifik buat Agenda
+  const mockEvents = {
+    8: ["Tugas Calculus Deadline", "Belajar Data Structure"],
+    28: ["Seminar binus internation", "Ulang tahun saudara"]
+  };
+
+  function renderCalendar() {
+    const grid = document.getElementById('cal-grid');
+    let html = '';
+    
+    // Render 30 Hari bulan Juni
+    for(let i = 1; i <= 30; i++) {
+      const hasEvent = mockEvents[i] ? 'has-event' : '';
+      html += `<div class="cal-day ${hasEvent}" onclick="selectDate(${i}, this)">${i}</div>`;
+    }
+    
+    // Tambahan hari bulan depan (muted)
+    html += `<div class="cal-day muted">1</div><div class="cal-day muted">2</div>`;
+    grid.innerHTML = html;
+  }
+
+  function selectDate(day, el) {
+    // Reset active class
+    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('active'));
+    el.classList.add('active');
+
+    // Tampilkan isi agenda box
+    const box = document.getElementById('agenda-box');
+    if (mockEvents[day]) {
+      box.innerHTML = `Jadwal Tanggal ${day} Juni:<br><ul>` + 
+                      mockEvents[day].map(e => `<li>${e}</li>`).join('') + 
+                      `</ul>`;
+    } else {
+      box.innerHTML = `<div style="text-align:center; padding-top:30px; opacity:0.8;">Tidak ada agenda di hari ini.</div>`;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCalendar);
+</script>
+</body>
+</html>

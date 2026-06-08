@@ -2,64 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TodoPlant - Main</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="global.css">
 </head>
 <body>
 <div class="phone">
-  <div class="sbar"><span>9:41</span><span style="font-size:10px">TODOPLANT</span><span>⚡ 100%</span></div>
+  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">TODOPLANT</span><span>⚡ 100%</span></div>
   <div class="toast" id="toast"></div>
 
-  <div class="scr" id="s-main">
+  <div class="scr">
     <div class="topbar">
-      <div class="tbadge" onclick="goTo('sub/subscreen_Streak.html')">🔥 <span>3</span></div>
+      <div class="tbadge" onclick="goTo('sub/subscreen_Streak.html')">🔥 <span id="global-streak">3</span></div>
       <div class="tbadge" onclick="goTo('sub/subscreen_coin.html')">🪙 <span id="global-coin">0</span></div>
-      <button class="tbadge" onclick="goTo('customizeAvatar.html')">✏️ Lemari</button>
+      <button class="tbadge" onclick="goTo('customizeAvatar.html')" style="border:none;">✏️ Lemari</button>
     </div>
 
     <div class="avatar-box">
       <svg class="avatar-svg" id="avatar-main" viewBox="0 0 110 180" xmlns="http://www.w3.org/2000/svg"></svg>
       <div class="plant-btn-sm" onclick="goTo('Todoplant.html')">
-        <div style="font-size:22px">🌱</div>
-        <div style="font-size:8px; font-weight:900; color:var(--green)">PLANT</div>
+        <div style="font-size:24px">🌱</div>
       </div>
     </div>
 
     <div class="tabs">
-      <div class="tab on" id="t-todo">To Do List</div>
-      <div class="tab" onclick="goTo('sub/subscreen_Streak.html')">Jadwal</div>
+      <div class="tab" onclick="goTo('sub/subscreen_moreTodo.html')">To Do List</div>
+      <div class="tab" onclick="goTo('sub/subscreen_task.html')">Task</div>
+      <div class="tab" onclick="goTo('sub/subscreen_agenda.html')">Agenda</div>
     </div>
 
     <div class="task-scroll" id="task-list"></div>
-
-    <button class="btn-add-main" onclick="goTo('sub/subscreen_creatingTodo.html')">+ Buat Tugas Baru</button>
+    <button class="btn-add-main" onclick="goTo('sub/subscreen_creatingTodo.html')">+ Tambah Tugas Baru</button>
   </div>
 </div>
-
 <script src="script.js"></script>
 <script>
   function renderTasks() {
     const list = document.getElementById('task-list');
     if (!S.tasks.length) {
-      list.innerHTML = `<p style="text-align:center; padding:20px; color:var(--muted)">Semua tugas tuntas!</p>`;
+      list.innerHTML = `<p style="text-align:center; padding:30px 0; color:var(--muted); font-weight:800;">Tidak ada tugas.</p>`;
       return;
     }
-    list.innerHTML = S.tasks.map(t => `
-      <div class="t-item ${t.done ? 'done' : ''}" onclick="toggleTaskState(${t.id})">
+    list.innerHTML = S.tasks.slice(0, 3).map(t => `
+      <div class="t-item ${t.done ? 'done' : ''}" onclick="triggerCamera(${t.id})">
         <div class="t-check"></div>
-        <div class="t-text">${t.text} ${t.gcal ? '<span style="font-size:10px;color:var(--amber)">[GCal]</span>':''}</div>
-        <div class="t-date">${t.date}</div>
+        <div style="flex:1;">
+           <div class="t-text">${t.text}</div>
+        </div>
       </div>
     `).join('');
   }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    renderAvatar('avatar-main');
-    syncGlobalStats();
-    renderTasks();
-  });
+  document.addEventListener('DOMContentLoaded', () => { renderAvatar('avatar-main'); syncGlobalStats(); renderTasks(); });
 </script>
 </body>
 </html>
