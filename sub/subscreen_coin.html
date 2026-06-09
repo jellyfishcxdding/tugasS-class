@@ -4,23 +4,67 @@
   <meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../global.css">
+  <style>
+    .history-card {
+      background: #fdf2f5; /* Warna pink pastel dari Figma */
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+    }
+    .hist-title { font-size: 12px; font-weight: 800; color: var(--text); opacity: 0.8; }
+    .hist-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+    .hist-task { font-size: 14px; font-weight: 900; color: var(--text); }
+    .hist-amt { font-size: 12px; font-weight: 900; color: var(--text); }
+  </style>
 </head>
-<body>
-<div class="phone">
-  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">DOMPET KOIN</span><span>⚡ 100%</span></div>
+<body style="background: #e6f9fa;">
+<div class="phone" style="background: transparent; box-shadow: none;">
+  <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
+    
     <div class="topbar">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">← Menu</button>
-      <div style="width:60px;"></div>
+      <button class="tbadge" style="border:none;" onclick="history.back()">←</button>
+      <div></div>
     </div>
-    <div style="background:var(--card); padding:30px 20px; border-radius:28px; text-align:center; border:1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.03); backdrop-filter: blur(10px);">
-      <div style="font-size:60px">🪙</div>
-      <h2 id="coin-amt" style="color:var(--text); font-size:32px; font-weight:900; margin:10px 0;">0</h2>
-      <p style="font-size:14px; color:var(--muted); font-weight:800; line-height:1.5;">Kumpulkan koin dengan menuntaskan setiap tugas di aplikasi TodoPlant dan gunakan untuk beli outfit.</p>
+
+    <div style="display: flex; flex-direction: column; align-items: center; margin: 20px 0 40px;">
+      <div class="anim-coin" style="font-size: 80px; margin-bottom: 16px;">🪙</div>
+      <div style="font-size: 24px; font-weight: 800; color: var(--text);">
+        <span id="coin-amt"></span> coins
+      </div>
     </div>
+
+    <div class="task-scroll" id="history-list">
+      </div>
+
   </div>
 </div>
 <script src="../script.js"></script>
-<script>document.getElementById('coin-amt').textContent = S.coins + " Koin";</script>
+<script>
+  document.getElementById('coin-amt').textContent = S.coins;
+
+  // Render history dari tugas yang statusnya "done"
+  function renderHistory() {
+    const list = document.getElementById('history-list');
+    const doneTasks = S.tasks.filter(t => t.done === true);
+    
+    if (!doneTasks.length) {
+      list.innerHTML = `<p style="text-align:center; font-weight:800; opacity:0.5;">Belum ada tugas yang diselesaikan.</p>`;
+      return;
+    }
+
+    list.innerHTML = doneTasks.map(t => `
+      <div class="history-card">
+        <div class="hist-title">Task completed</div>
+        <div class="hist-row">
+          <div class="hist-task">${t.text}</div>
+          <div class="hist-amt">20 coins</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', renderHistory);
+</script>
 </body>
 </html>

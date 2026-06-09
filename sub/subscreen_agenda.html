@@ -2,111 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Agenda Kalender</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../global.css">
-  <style>
-    .cal-header {
-      display: flex; justify-content: space-between; padding: 8px 16px;
-      border: 2px solid #5C3A1E; border-radius: 20px; margin-bottom: 16px;
-      font-size: 13px; font-weight: 900; color: #5C3A1E; background: transparent;
-    }
-    .cal-grid {
-      display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;
-      text-align: center; margin-bottom: 20px;
-    }
-    .cal-day {
-      font-size: 14px; font-weight: 900; color: var(--text); padding: 8px 0;
-      cursor: pointer; border-radius: 12px; transition: all 0.2s;
-    }
-    .cal-day:hover { background: rgba(0,0,0,0.05); }
-    .cal-day.active { background: var(--text); color: white; }
-    .cal-day.has-event { border-bottom: 3px solid #8B5E3C; }
-    .cal-day.muted { color: var(--muted); opacity: 0.5; }
-
-    .agenda-box {
-      background: #8B5E3C; color: white; border-radius: 20px;
-      padding: 20px; min-height: 120px; font-size: 13px; font-weight: 800;
-      box-shadow: 0 10px 20px rgba(139, 94, 60, 0.3);
-    }
-    .agenda-box ul { padding-left: 20px; margin-top: 10px; line-height: 1.8; }
-    
-    .type-input {
-      display: flex; align-items: center; background: white; border-radius: 24px;
-      padding: 10px 16px; border: 1.5px solid var(--border); margin-top: 20px;
-    }
-    .type-input input { flex: 1; border: none; outline: none; font-family: var(--font); font-size: 14px; font-weight: 700; color: var(--text); }
-    .type-input .icons { font-size: 18px; color: var(--text); display: flex; gap: 10px; cursor: pointer; }
-  </style>
 </head>
 <body>
 <div class="phone">
-  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">AGENDA</span><span>⚡ 100%</span></div>
-  
+  <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
-    <div class="topbar">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">← Menu</button>
-      <h3 style="color:var(--text); font-size:15px; font-weight:900;">Juni 2026</h3>
-      <div style="width:60px;"></div>
+    
+    <div class="topbar" style="display:flex; justify-content:space-between; align-items:center;">
+      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">←</button>
+      <div style="display:flex; gap:8px;">
+        <select id="month-select" class="styled-select" onchange="renderCalendar()">
+          <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option>
+          <option value="3">Apr</option><option value="4">Mei</option><option value="5">Jun</option>
+          <option value="6">Jul</option><option value="7">Agu</option><option value="8">Sep</option>
+          <option value="9">Okt</option><option value="10">Nov</option><option value="11">Des</option>
+        </select>
+        <select id="year-select" class="styled-select" onchange="renderCalendar()">
+          <script>
+            const y = new Date().getFullYear();
+            for(let i=0; i<10; i++) document.write(`<option value="${y+i}">${y+i}</option>`);
+          </script>
+        </select>
+      </div>
+      <div style="width:40px;"></div>
     </div>
 
-    <div class="cal-header">
-      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+    <div style="display: flex; justify-content: space-between; padding: 10px 16px; background: var(--card); border-radius: 20px; font-size: 12px; font-weight: 900; color: var(--brown);">
+      <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
     </div>
-
+    
     <div class="cal-grid" id="cal-grid"></div>
-
-    <div class="agenda-box" id="agenda-box">
+    
+    <div id="agenda-box" style="margin-top:20px; background:var(--brown); color:white; padding:20px; border-radius:20px; font-weight:800; font-size:13px; min-height: 120px;">
       Pilih tanggal untuk melihat jadwal.
-    </div>
-
-    <div class="type-input">
-      <input type="text" placeholder="Type">
-      <div class="icons"><span>🎤</span><span>🚀</span></div>
     </div>
   </div>
 </div>
 
 <script src="../script.js"></script>
 <script>
-  // Data Mockup Spesifik buat Agenda
-  const mockEvents = {
-    8: ["Tugas Calculus Deadline", "Belajar Data Structure"],
-    28: ["Seminar binus internation", "Ulang tahun saudara"]
-  };
-
   function renderCalendar() {
     const grid = document.getElementById('cal-grid');
-    let html = '';
+    const m = parseInt(document.getElementById('month-select').value);
+    const y = parseInt(document.getElementById('year-select').value);
+    grid.innerHTML = '';
     
-    // Render 30 Hari bulan Juni
-    for(let i = 1; i <= 30; i++) {
-      const hasEvent = mockEvents[i] ? 'has-event' : '';
-      html += `<div class="cal-day ${hasEvent}" onclick="selectDate(${i}, this)">${i}</div>`;
+    const days = new Date(y, m + 1, 0).getDate();
+    const start = new Date(y, m, 1).getDay();
+    const offset = (start === 0) ? 6 : start - 1;
+    
+    for(let i=0; i<offset; i++) grid.innerHTML += `<div class="cal-day muted"></div>`;
+    
+    for(let i=1; i<=days; i++) {
+      const dateStr = `${y}-${(m+1).toString().padStart(2,'0')}-${i.toString().padStart(2,'0')}`;
+      const has = S.tasks.some(t => t.gcal && t.date === dateStr) ? 'has-event' : '';
+      grid.innerHTML += `<div class="cal-day ${has}" onclick="selectDate('${dateStr}', this)">${i}</div>`;
     }
-    
-    // Tambahan hari bulan depan (muted)
-    html += `<div class="cal-day muted">1</div><div class="cal-day muted">2</div>`;
-    grid.innerHTML = html;
   }
-
-  function selectDate(day, el) {
-    // Reset active class
-    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('active'));
+  
+  function selectDate(d, el) {
+    document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
     el.classList.add('active');
-
-    // Tampilkan isi agenda box
     const box = document.getElementById('agenda-box');
-    if (mockEvents[day]) {
-      box.innerHTML = `Jadwal Tanggal ${day} Juni:<br><ul>` + 
-                      mockEvents[day].map(e => `<li>${e}</li>`).join('') + 
-                      `</ul>`;
-    } else {
-      box.innerHTML = `<div style="text-align:center; padding-top:30px; opacity:0.8;">Tidak ada agenda di hari ini.</div>`;
-    }
+    const tasks = S.tasks.filter(t => t.gcal && t.date === d);
+    box.innerHTML = tasks.length ? `Jadwal ${d}:<ul style="padding-left:20px; margin-top:10px; line-height:1.6;">` + tasks.map(t => `<li style="${t.done ? 'text-decoration:line-through; opacity:0.7;' : ''}">${t.text}</li>`).join('') + `</ul>` : '<div style="text-align:center; padding-top:20px;">Tidak ada agenda.</div>';
   }
 
-  document.addEventListener('DOMContentLoaded', renderCalendar);
+  document.addEventListener('DOMContentLoaded', () => { 
+    document.getElementById('month-select').value = new Date().getMonth();
+    renderCalendar(); 
+  });
 </script>
 </body>
 </html>

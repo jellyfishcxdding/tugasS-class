@@ -2,147 +2,122 @@
   --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
   --phone-bg: #f9f4f6;
   --card: rgba(255, 255, 255, 0.85);
-  --pink: #e8a0b0;
-  --pink-dark: #d2778d;
-  --text: #2d242a;
-  --muted: #8e7d86;
+  --pink: #e8a0b0; --pink-dark: #d2778d;
+  --text: #2d242a; --muted: #8e7d86;
   --border: rgba(232, 208, 216, 0.6);
-  --green: #58a042;
-  --green-light: #e6f4df;
-  --amber: #e5af25;
+  --green: #58a042; --green-light: #e6f4df;
+  --amber: #e5af25; --brown: #8B5E3C;
   --font: 'Nunito', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-body {
-  font-family: var(--font); background: var(--bg-gradient);
-  display: flex; justify-content: center; align-items: center; min-height: 100vh;
+body { 
+  font-family: var(--font); background: var(--bg-gradient); 
+  display: flex; justify-content: center; align-items: center; min-height: 100vh; 
 }
 
-.phone {
-  width: 375px !important; min-width: 375px !important; height: 812px;
-  background: var(--phone-bg); border-radius: 48px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.12), inset 0 0 0 10px #211d20;
-  overflow: hidden; display: flex; flex-direction: column; position: relative; margin: 0 auto;
+.phone { 
+  width: 375px !important; min-width: 375px !important; height: 812px; 
+  background: var(--phone-bg); border-radius: 48px; 
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12), inset 0 0 0 10px #211d20; 
+  overflow: hidden; display: flex; flex-direction: column; position: relative; margin: 0 auto; 
 }
 
-.sbar {
-  height: 50px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px; font-size: 13px; font-weight: 800; color: var(--text); flex-shrink: 0;
-  background: transparent; z-index: 10;
+.sbar { 
+  height: 50px; display: flex; align-items: center; justify-content: space-between; 
+  padding: 0 28px; font-size: 13px; font-weight: 900; color: var(--text); background: transparent; z-index: 10; 
 }
 
-.scr { display: flex; flex-direction: column; flex: 1; padding: 0 20px 20px; overflow: hidden; }
-.topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 0 20px; }
-
-/* =========================================================
-   🔥 DUOLINGO PREMIUM ANIMATION SYSTEM (S-CLASS UPGRADE)
-   ========================================================= */
-
-/* 1. Animasi Api Duolingo (Organic Stretch, Squash, & Wobble) */
-@keyframes duolingoFlame {
-  0%, 100% { transform: scale(1, 1) rotate(0deg); }
-  20% { transform: scale(0.9, 1.15) rotate(-4deg); }  /* Melar ke atas, goyang kiri */
-  40% { transform: scale(1.12, 0.92) rotate(3deg); }  /* Mengempis melebar, goyang kanan */
-  60% { transform: scale(0.94, 1.06) rotate(-2deg); } /* Stabilisasi melar tipis */
-  80% { transform: scale(1.05, 0.95) rotate(1deg); }  /* Stabilisasi mengempis tipis */
-}
-.anim-fire { 
-  display: inline-block; 
-  animation: duolingoFlame 1.3s infinite ease-in-out; 
-  transform-origin: center bottom; /* Dikunci di bawah biar kayak api lilin nyala */
+/* FIXED: Balikin ke align-items stretch biar isinya ga ciut */
+.scr { 
+  display: flex; flex-direction: column; flex: 1; padding: 0 20px 20px; 
+  overflow: hidden; align-items: stretch; width: 100%;
 }
 
-/* 2. Animasi Koin Duolingo (Playful Floating & Curated Glow Shadow) */
-@keyframes duolingoCoin {
-  0%, 100% { 
-    transform: translateY(0) scale(1); 
-    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); 
-  }
-  50% { 
-    transform: translateY(-7px) scale(1.08); /* Melompat naik sedikit membesar */
-    filter: drop-shadow(0 8px 12px rgba(245, 192, 64, 0.4)); /* Efek pendaran emas murni */
-  }
-}
-.anim-coin { 
-  display: inline-block; 
-  animation: duolingoCoin 1.6s infinite cubic-bezier(0.45, 0, 0.55, 1); /* Kurva transisi kenyal */
-}
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 0 20px; width: 100%; }
 
-/* 3. Animasi Avatar Nafas (Idle Floating) */
-@keyframes idleFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
+/* Dropdown Komik/Game UI */
+.styled-select {
+  appearance: none; background: white; border: 3px solid #e8d0d8; border-radius: 20px;
+  padding: 8px 30px 8px 15px; font-family: var(--font); font-weight: 900;
+  color: var(--text); cursor: pointer; font-size: 14px; box-shadow: 0 4px 0px #e8d0d8;
+  transition: all 0.2s;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232d242a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat, repeat; background-position: right .7em top 50%, 0 0; background-size: .65em auto, 100%;
 }
+.styled-select:active { transform: translateY(2px); box-shadow: 0 1px 0px #e8d0d8; }
 
-/* =========================================================
-   CONTAINER AND LAYOUT REGULATION
-   ========================================================= */
+/* Animasi */
+@keyframes duolingoFlame { 0%, 100% { transform: scale(1, 1) rotate(0deg); } 20% { transform: scale(0.9, 1.15) rotate(-4deg); } 40% { transform: scale(1.12, 0.92) rotate(3deg); } 60% { transform: scale(0.94, 1.06) rotate(-2deg); } 80% { transform: scale(1.05, 0.95) rotate(1deg); } }
+.anim-fire { display: inline-block; animation: duolingoFlame 1.3s infinite ease-in-out; transform-origin: center bottom; }
+@keyframes duolingoCoin { 0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); } 50% { transform: translateY(-7px) scale(1.08); filter: drop-shadow(0 8px 12px rgba(245, 192, 64, 0.4)); } }
+.anim-coin { display: inline-block; animation: duolingoCoin 1.6s infinite cubic-bezier(0.45, 0, 0.55, 1); }
+@keyframes idleFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
 
-.tbadge {
-  display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--text);
-  background: var(--card); padding: 8px 14px; border-radius: 24px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid var(--border); cursor: pointer;
-  backdrop-filter: blur(10px); transition: transform 0.2s;
-}
-.tbadge:active { transform: scale(0.95); }
-
-.avatar-box, .cust-avatar-box {
-  background: linear-gradient(to bottom, #fceaf0, #f3d7e2); border-radius: 30px; height: 180px;
-  display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
-  position: relative; overflow: hidden; box-shadow: inset 0 -10px 20px rgba(255,255,255,0.5); margin-bottom: 20px;
-}
-
-.avatar-svg { 
-  width: auto; height: 145px; max-width: 120px; flex-shrink: 0; 
-  animation: idleFloat 3s infinite ease-in-out; 
-  transform-origin: center bottom;
-}
-
-.plant-btn-sm {
-  width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 20px;
+/* Kontainer Elemen Pop-up Tengah (Khusus Layar Utama) */
+.middle-popup-container {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  cursor: pointer; margin-bottom: 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: all 0.2s;
+  gap: 16px; margin: 10px 0 20px 0; width: 100%;
 }
+.large-flame-icon { font-size: 70px; text-align: center; margin-bottom: 5px; animation: duolingoFlame 1.3s infinite ease-in-out; }
+.comic-badge {
+  display: flex; align-items: center; gap: 12px; font-family: var(--font); font-weight: 900;
+  font-size: 20px; background: #ffffff; padding: 10px 24px; border-radius: 60px;
+  border: 4px solid #e8d0d8; box-shadow: 0 6px 0px #e8d0d8; color: var(--text);
+  text-transform: uppercase; cursor: pointer; transition: transform 0.1s;
+}
+.comic-badge:active { transform: translateY(2px); box-shadow: 0 2px 0px #e8d0d8; }
+
+/* Komponen Default */
+.tbadge {
+  display: flex; align-items: center; gap: 8px; font-family: var(--font); font-weight: 900; font-size: 14px;
+  background: #ffffff; padding: 8px 16px; border-radius: 50px; border: 3px solid #e8d0d8;
+  box-shadow: 0 4px 0px #e8d0d8; color: var(--text); cursor: pointer; transition: transform 0.1s;
+}
+.tbadge:active { transform: translateY(2px); box-shadow: 0 1px 0px #e8d0d8; }
+
+.avatar-box, .cust-avatar-box { 
+  background: linear-gradient(to bottom, #fceaf0, #f3d7e2); border-radius: 30px; height: 180px; width: 100%;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 20px; 
+  position: relative; overflow: hidden; box-shadow: inset 0 -10px 20px rgba(255,255,255,0.5); margin-bottom: 16px; 
+}
+.avatar-svg { width: auto; height: 145px; max-width: 120px; flex-shrink: 0; animation: idleFloat 3s infinite ease-in-out; transform-origin: center bottom; }
+
+.plant-btn-sm { width: 60px; height: 60px; background: rgba(255,255,255,0.9); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: all 0.2s; }
 .plant-btn-sm:hover { transform: translateY(-3px); }
 
-.tabs { display: flex; gap: 10px; margin-bottom: 16px; background: rgba(232, 208, 216, 0.3); padding: 6px; border-radius: 24px; }
-.tab {
-  flex: 1; padding: 10px 0; border-radius: 18px; font-size: 13px; font-weight: 800; color: var(--muted);
-  text-align: center; cursor: pointer; transition: all 0.3s;
-}
+.tabs { display: flex; gap: 10px; margin-bottom: 16px; background: rgba(232, 208, 216, 0.3); padding: 6px; border-radius: 24px; width: 100%; }
+.tab { flex: 1; padding: 10px 0; border-radius: 18px; font-size: 13px; font-weight: 800; color: var(--muted); text-align: center; cursor: pointer; transition: all 0.3s; }
 .tab.on { background: #fff; color: var(--text); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-.task-scroll { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 10px; }
+.task-scroll { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; width: 100%; }
 .task-scroll::-webkit-scrollbar { display: none; }
-
-.t-item {
-  display: flex; align-items: center; gap: 14px; background: var(--card); padding: 16px; border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid var(--border); transition: all 0.3s;
-  backdrop-filter: blur(10px); cursor: pointer;
-}
-.t-check {
-  width: 24px; height: 24px; border-radius: 8px; border: 2.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-}
+.t-item { display: flex; align-items: center; gap: 14px; background: var(--card); padding: 16px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border: 1px solid var(--border); transition: all 0.3s; backdrop-filter: blur(10px); cursor: pointer; width: 100%; }
+.t-check { width: 24px; height: 24px; border-radius: 8px; border: 2.5px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
 .t-item.done { opacity: 0.7; background: rgba(255,255,255,0.5); }
 .t-item.done .t-check { background: var(--green); border-color: var(--green); }
 .t-item.done .t-check::after { content: '✓'; color: white; font-size: 14px; font-weight: 900; }
 .t-text { flex: 1; font-size: 14px; font-weight: 800; color: var(--text); }
 .t-item.done .t-text { text-decoration: line-through; color: var(--muted); }
 
-.btn-add-main {
-  background: var(--text); color: white; border: none; padding: 16px; border-radius: 24px;
-  font-family: var(--font); font-size: 14px; font-weight: 800; cursor: pointer;
-  box-shadow: 0 10px 25px rgba(45, 36, 42, 0.2); transition: transform 0.2s; width: 100%;
-}
+.btn-add-main { background: var(--text); color: white; border: none; padding: 16px; border-radius: 24px; font-family: var(--font); font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 25px rgba(45, 36, 42, 0.2); transition: transform 0.2s; width: 100%; margin-top: auto; flex-shrink: 0; }
 .btn-add-main:active { transform: translateY(2px); }
 
-.toast {
-  position: absolute; top: 60px; left: 50%; transform: translateX(-50%) translateY(-20px);
-  background: var(--text); color: white; padding: 12px 24px; border-radius: 24px; font-size: 13px;
-  font-weight: 800; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+.toast { position: absolute; top: 60px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--text); color: white; padding: 12px 24px; border-radius: 24px; font-size: 13px; font-weight: 800; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .sub-frame { width: 100%; flex: 1; border: none; background: transparent; }
+
+/* Grid Kalender */
+.cal-grid { display: grid !important; grid-template-columns: repeat(7, 1fr) !important; gap: 8px !important; width: 100% !important; margin-top: 15px !important; }
+.cal-day { aspect-ratio: 1/1; display: flex !important; align-items: center !important; justify-content: center !important; font-weight: 900 !important; cursor: pointer; border-radius: 50%; background: var(--card); border: 2px solid var(--border); transition: all 0.2s; }
+.cal-day.active { background: var(--text); color: white; border-color: var(--text); }
+.cal-day.has-event { border: 2px solid var(--pink-dark); }
+.cal-day.muted { opacity: 0.3; cursor: default; border: none; background: transparent; }
+
+/* Task Card Detail */
+.task-card { background: var(--card); padding: 16px; border-radius: 20px; border: 2px solid var(--border); margin-bottom: 12px; width: 100%; }
+.task-card h3 { font-size: 16px; color: var(--text); margin-bottom: 4px; font-weight: 900; }
+.task-card ul { padding-left: 20px; color: var(--muted); font-size: 14px; font-weight: 800; line-height: 1.6; }
+.submit-btn { background: var(--brown); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-family: var(--font); font-size: 13px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(92, 58, 30, 0.3); transition: transform 0.1s; }
+.submit-btn:active { transform: scale(0.95); }

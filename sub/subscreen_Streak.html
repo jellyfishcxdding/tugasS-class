@@ -5,19 +5,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../global.css">
 </head>
-<body>
-<div class="phone">
-  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">STREAK</span><span>⚡ 100%</span></div>
+<body style="background: #e6f9fa;"> <div class="phone" style="background: transparent; box-shadow: none;">
+  <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
+    
     <div class="topbar">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">← Menu</button>
-      <div style="width:60px;"></div>
+      <button class="tbadge" style="border:none;" onclick="history.back()">←</button>
+      <div></div>
     </div>
-    <div style="background:var(--card); padding:30px 20px; border-radius:28px; text-align:center; border:1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.03); backdrop-filter: blur(10px);">
-      <div style="font-size:60px">🔥</div>
-      <h2 style="color:var(--text); font-size:32px; font-weight:900; margin:10px 0;"><span id="strk"></span> Hari</h2>
-      <p style="font-size:14px; color:var(--muted); font-weight:800; line-height:1.5;">Pertahankan rentetan penyelesaian tugasmu tiap hari!</p>
+
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 80px;">
+      <div class="anim-fire" style="font-size: 100px; margin-bottom: 20px;">🔥</div>
+      <div style="font-size: 24px; font-weight: 800; color: var(--text);">
+        <span id="strk"></span> Days
+      </div>
     </div>
+
   </div>
 </div>
 <script src="../script.js"></script>
