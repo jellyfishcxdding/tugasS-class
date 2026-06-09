@@ -2,40 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Daftar Tugas Aktif</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../global.css">
 </head>
 <body>
 <div class="phone">
-  <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">TASKS</span><span>⚡ 100%</span></div>
+  <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
     <div class="topbar">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">← Kembali</button>
-      <h3 style="color:var(--text); font-size:15px; font-weight:900;">Tugas Aktif</h3>
-      <div style="width:60px;"></div>
+      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">←</button>
+      <div></div>
     </div>
+    
     <div class="task-scroll" id="task-list"></div>
   </div>
 </div>
+
 <script src="../script.js"></script>
 <script>
   function renderTasks() {
     const list = document.getElementById('task-list');
-    const activeTasks = S.tasks.filter(t => t.done === false);
-    if (!activeTasks.length) {
-      list.innerHTML = `<div style="text-align:center; padding:40px 0;"><div style="font-size:40px; margin-bottom:10px;">🎉</div><p style="color:var(--muted); font-weight:800;">Semua tugas sudah beres!</p></div>`; return;
-    }
-    list.innerHTML = activeTasks.map(t => `
-      <div class="t-item" onclick="triggerCamera(${t.id})" style="border-left: 4px solid var(--pink-dark);">
-        <div class="t-check"></div>
-        <div style="flex:1;">
-           <div class="t-text">${t.text}</div>
-        </div>
+    const active = S.tasks.filter(t => !t.done);
+    if(!active.length) { list.innerHTML = '<p style="text-align:center; font-weight:800; color:var(--muted); padding-top:40px;">Semua tugas beres!</p>'; return; }
+    
+    // Ngerender Tugas Dinamis Sesuai Database
+    list.innerHTML = active.map(t => `
+      <div class="task-card" style="position:relative;">
+        <h3>• ${t.text} 📤</h3>
+        <p style="font-size:12px; font-weight:800;">Due Date: ${t.date}</p>
+        ${t.info ? `<p style="font-size:12px; font-weight:800; margin-top:8px;">Info:</p><ul>${t.info.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
+        <button class="submit-btn" style="position:absolute; bottom:16px; right:16px;" onclick="triggerCamera(${t.id})">Submit 📤</button>
       </div>
     `).join('');
   }
-  document.addEventListener('DOMContentLoaded', () => { syncGlobalStats(); renderTasks(); });
+  document.addEventListener('DOMContentLoaded', renderTasks);
 </script>
 </body>
 </html>

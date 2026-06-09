@@ -3,8 +3,8 @@ let S = JSON.parse(localStorage.getItem('todoPlantState')) || {
   equipped: { shoes: 0, shirt: 0, acc: -1, hat: -1 },
   owned: { shoes: [0], shirt: [0], acc: [], hat: [] },
   tasks: [
-    { id: 1, text: 'Beli kertas A4', date: '2026-06-08', done: false, gcal: true },
-    { id: 2, text: 'Beresin kamar', date: '2026-06-08', done: false, gcal: false }
+    { id: 1, text: 'Tugas Calculus', date: '2026-05-29', done: false, gcal: true, info: ['2 soal integral', '3 soal limit', '2 soal fungsi', '2 soal volume', '1 soal penerapan'] },
+    { id: 2, text: 'Tugas Data Structure', date: '2026-06-11', done: false, gcal: false, info: ['Bikin logic AVL Tree', 'Buat visualisasi struct'] }
   ]
 };
 
