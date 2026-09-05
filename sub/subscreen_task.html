@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="phone">
-  <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
+  <div class="sbar"><span>9:41</span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
     <div class="topbar">
       <button class="tbadge" onclick="window.location.href='../mainScreen.html'">←</button>
@@ -31,7 +31,7 @@
         <p style="font-size:13px; font-weight:800; color:var(--duo-pink); margin:6px 0;">Due: ${t.date}</p>
         ${t.info ? `<ul style="padding-left:20px; color:var(--text-muted); font-size:14px; font-weight:800; line-height:1.6; margin-bottom:15px;">${t.info.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
         
-        <button onclick="triggerCamera(${t.id})" style="position:absolute; bottom:16px; right:16px; background:var(--duo-brown); border:2px solid var(--duo-brown-shadow); border-bottom-width:4px; color:white; border-radius:12px; padding:6px 14px; font-weight:900; cursor:pointer; font-family:var(--font); transition:0.1s;">Submit 📤</button>
+        <button onclick="triggerCamera(${t.id})" style="position:absolute; bottom:16px; right:16px; background:var(--duo-brown); border:2px solid var(--duo-brown-shadow); border-bottom-width:4px; color:white; border-radius:12px; padding:6px 14px; font-weight:900; cursor:pointer; transition:0.1s;">Submit 📤</button>
       </div>
     `).join('');
   }
