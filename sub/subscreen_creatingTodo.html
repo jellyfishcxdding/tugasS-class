@@ -17,7 +17,7 @@
   <div class="sbar"><span>9:41</span><span style="font-size:10px; font-weight:900;">TODOPLANT</span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
     <div class="topbar">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">← Batal</button>
+      <button class="tbadge" style="border:none;" onclick="window.location.href='../index.html'">← Batal</button>
       <h3 style="color:var(--text); font-size:15px; font-weight:900;">Tugas Baru</h3>
       <div style="width:60px;"></div>
     </div>
@@ -40,7 +40,7 @@
     const sync = document.getElementById('gcal-sync').checked;
     if (!txt) return;
     S.tasks.push({ id: Date.now(), text: txt, date: dt, done: false, gcal: sync });
-    saveState(); window.location.href = '../mainScreen.html';
+    saveState(); window.location.href = '../index.html';
   }
 </script>
 </body>
