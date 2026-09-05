@@ -10,7 +10,7 @@
   <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
     <div class="topbar">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">←</button>
+      <button class="tbadge" onclick="window.location.href='../mainScreen.html'">←</button>
       <div></div>
     </div>
     
@@ -23,15 +23,15 @@
   function renderTasks() {
     const list = document.getElementById('task-list');
     const active = S.tasks.filter(t => !t.done);
-    if(!active.length) { list.innerHTML = '<p style="text-align:center; font-weight:800; color:var(--muted); padding-top:40px;">Semua tugas beres!</p>'; return; }
+    if(!active.length) { list.innerHTML = '<p style="text-align:center; font-weight:800; color:var(--text-muted); padding-top:40px;">Semua tugas beres!</p>'; return; }
     
-    // Ngerender Tugas Dinamis Sesuai Database
     list.innerHTML = active.map(t => `
-      <div class="task-card" style="position:relative;">
-        <h3>• ${t.text} 📤</h3>
-        <p style="font-size:12px; font-weight:800;">Due Date: ${t.date}</p>
-        ${t.info ? `<p style="font-size:12px; font-weight:800; margin-top:8px;">Info:</p><ul>${t.info.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
-        <button class="submit-btn" style="position:absolute; bottom:16px; right:16px;" onclick="triggerCamera(${t.id})">Submit 📤</button>
+      <div style="background:#fff; padding:16px; border-radius:20px; border:2px solid var(--border-light); border-bottom-width:6px; margin-bottom:12px; width:100%; position:relative;">
+        <h3 style="font-size:16px; color:var(--text-main); font-weight:900;">• ${t.text} 📤</h3>
+        <p style="font-size:13px; font-weight:800; color:var(--duo-pink); margin:6px 0;">Due: ${t.date}</p>
+        ${t.info ? `<ul style="padding-left:20px; color:var(--text-muted); font-size:14px; font-weight:800; line-height:1.6; margin-bottom:15px;">${t.info.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
+        
+        <button onclick="triggerCamera(${t.id})" style="position:absolute; bottom:16px; right:16px; background:var(--duo-brown); border:2px solid var(--duo-brown-shadow); border-bottom-width:4px; color:white; border-radius:12px; padding:6px 14px; font-weight:900; cursor:pointer; font-family:var(--font); transition:0.1s;">Submit 📤</button>
       </div>
     `).join('');
   }

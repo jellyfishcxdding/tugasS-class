@@ -1,9 +1,9 @@
 :root {
-  /* Palet Duolingo Style */
-  --bg-app: #f9f4f6; /* Warna background HP */
+
+  --bg-app: #f9f4f6; 
   --card-bg: #ffffff;
   
-  /* Warna Tombol & Badge (Base, Shadow) */
+
   --duo-green: #58cc02;
   --duo-green-shadow: #58a700;
   --duo-pink: #ff4b4b;
@@ -23,17 +23,17 @@
 
 body { background: #e0e0e0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
-/* Frame Mockup HP */
+
 .phone {
   width: 375px; height: 812px; background: var(--bg-app);
   border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.2), inset 0 0 0 12px #111;
   display: flex; flex-direction: column; overflow: hidden; position: relative;
 }
 
-/* Area Konten Utama */
+
 .scr { display: flex; flex-direction: column; flex: 1; padding: 0 20px 20px; overflow: hidden; align-items: stretch; width: 100%;}
 
-/* Header / Status Bar */
+
 .sbar { height: 45px; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; font-size: 13px; font-weight: 900; color: var(--text-main); }
 .topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 20px; width: 100%;}
 
@@ -53,12 +53,11 @@ body { background: #e0e0e0; display: flex; justify-content: center; align-items:
 }
 .btn-add-main:active { transform: translateY(4px); border-bottom-width: 2px; margin-bottom: 4px; }
 
-/* Animasi */
 @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 .anim-fire { display: inline-block; animation: pop 1.5s infinite ease-in-out; }
 .anim-coin { display: inline-block; animation: pop 2s infinite ease-in-out; }
 
-/* Layout List Tugas */
+
 .task-scroll { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; width: 100%; }
 .task-scroll::-webkit-scrollbar { display: none; }
 .t-item {
@@ -72,11 +71,11 @@ body { background: #e0e0e0; display: flex; justify-content: center; align-items:
 .t-check { width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--border-light); }
 .t-item.done .t-check { background: var(--duo-green); border-color: var(--duo-green-shadow); }
 
-/* Avatar Box */
+
 .avatar-box { background: linear-gradient(180deg, #ffdde1 0%, #ee9ca7 100%); border-radius: 24px; height: 160px; display: flex; justify-content: center; align-items: flex-end; position: relative; margin-bottom: 16px; border: 2px solid var(--border-light); border-bottom-width: 6px; overflow: hidden;}
 .avatar-svg { height: 140px; animation: pop 3s infinite ease-in-out; transform-origin: bottom center; }
 
-/* Tabs */
+
 .tabs { display: flex; gap: 8px; margin-bottom: 16px; width: 100%; }
 .tab { flex: 1; padding: 10px; text-align: center; font-weight: 800; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; }
 .tab.on { color: var(--duo-blue); border-bottom-color: var(--duo-blue); }
