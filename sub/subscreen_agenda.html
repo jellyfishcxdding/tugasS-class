@@ -7,11 +7,11 @@
 </head>
 <body>
 <div class="phone">
-  <div class="sbar"><span>9:41</span><span></span><span>⚡ 100%</span></div>
+  <div class="sbar"><span>9:41</span><span>⚡ 100%</span></div>
   <div class="scr" style="padding-top:10px;">
     
-    <div class="topbar" style="display:flex; justify-content:space-between; align-items:center;">
-      <button class="tbadge" style="border:none;" onclick="window.location.href='../mainScreen.html'">←</button>
+    <div class="topbar">
+      <button class="tbadge" onclick="window.location.href='../mainScreen.html'">←</button>
       <div style="display:flex; gap:8px;">
         <select id="month-select" class="styled-select" onchange="renderCalendar()">
           <option value="0">Jan</option><option value="1">Feb</option><option value="2">Mar</option>
@@ -29,13 +29,13 @@
       <div style="width:40px;"></div>
     </div>
 
-    <div style="display: flex; justify-content: space-between; padding: 10px 16px; background: var(--card); border-radius: 20px; font-size: 12px; font-weight: 900; color: var(--brown);">
+    <div style="display: flex; justify-content: space-between; padding: 10px 16px; background: #fff; border: 2px solid var(--border-light); border-bottom-width: 4px; border-radius: 16px; font-size: 13px; font-weight: 900; color: var(--duo-brown);">
       <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
     </div>
     
     <div class="cal-grid" id="cal-grid"></div>
     
-    <div id="agenda-box" style="margin-top:20px; background:var(--brown); color:white; padding:20px; border-radius:20px; font-weight:800; font-size:13px; min-height: 120px;">
+    <div id="agenda-box" style="margin-top:20px; background:var(--duo-brown); border-bottom: 6px solid var(--duo-brown-shadow); color:white; padding:20px; border-radius:20px; font-weight:800; font-size:14px; min-height: 120px;">
       Pilih tanggal untuk melihat jadwal.
     </div>
   </div>

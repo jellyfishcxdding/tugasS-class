@@ -1,5 +1,5 @@
 let S = JSON.parse(localStorage.getItem('todoPlantState')) || {
-  coins: 120, streak: 3, wateringCharges: 0, plantXp: 0, plantStage: 0,
+  coins: 150, streak: 3, wateringCharges: 0, plantXp: 0, plantStage: 0,
   equipped: { shoes: 0, shirt: 0, acc: -1, hat: -1 },
   owned: { shoes: [0], shirt: [0], acc: [], hat: [] },
   tasks: [
@@ -53,13 +53,16 @@ function avatarSVG(shirtCol, shoesCol, hatOn, accOn) {
 function renderAvatar(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  const colors = { shirt: ['#F4C0C0', '#A8D87A', '#85B7EB'], shoes: ['#8B5E3C', '#C84B6A', '#4A3520'] };
-  const sc = S.equipped.shirt >= 0 ? colors.shirt[S.equipped.shirt] : '#F4C0C0';
+  const colors = { shirt: ['#A8D87A', '#F4C0C0', '#85B7EB'], shoes: ['#8B5E3C', '#C84B6A', '#4A3520'] };
+  const sc = S.equipped.shirt >= 0 ? colors.shirt[S.equipped.shirt] : '#A8D87A';
   const ec = S.equipped.shoes >= 0 ? colors.shoes[S.equipped.shoes] : '#8B5E3C';
   el.innerHTML = avatarSVG(sc, ec, S.equipped.hat >= 0, S.equipped.acc >= 0);
 }
 
 function syncGlobalStats() {
+  // Sync paksa dari localStorage (biar update saat ganti kostum)
+  S = JSON.parse(localStorage.getItem('todoPlantState')) || S;
+  
   const cCoin = document.getElementById('global-coin');
   const cWater = document.getElementById('global-water-charge');
   const cStreak = document.getElementById('global-streak');
