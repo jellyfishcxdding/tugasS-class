@@ -105,6 +105,10 @@ body {
 .icon-close { border: 0; background: #f4f4f5; color: var(--text-main); width: 34px; height: 34px; border-radius: 50%; font-size: 23px; cursor: pointer; }
 .avatar-large-preview { height: 230px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 16px; background: #e8f4f8; border-radius: 22px; overflow: hidden; }
 .avatar-modal-svg { height: 215px; }
+.avatar-gender-switch { display: flex; gap: 8px; margin-bottom: 8px; padding: 4px; border-radius: 16px; background: #f4f8f9; }
+.avatar-gender-option { flex: 1; border: 0; border-radius: 12px; padding: 8px; background: transparent; color: var(--text-muted); font-family: var(--font); font-size: 12px; font-weight: 900; cursor: pointer; }
+.avatar-gender-option small { display: block; margin-top: 1px; font-size: 9px; font-weight: 800; }
+.avatar-gender-option.active { background: #fff; color: var(--duo-blue); box-shadow: 0 2px 7px rgba(70, 100, 110, .12); }
 .avatar-category-tabs { display: flex; gap: 4px; overflow-x: auto; border-bottom: 1px solid #edf0f1; scrollbar-width: none; }
 .avatar-category-tabs::-webkit-scrollbar { display: none; }
 .avatar-category-tab { flex: 0 0 auto; border: 0; border-bottom: 3px solid transparent; padding: 10px 9px 9px; background: transparent; color: var(--text-muted); font-family: var(--font); font-size: 12px; font-weight: 900; cursor: pointer; }
