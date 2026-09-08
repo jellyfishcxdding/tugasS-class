@@ -1,5 +1,5 @@
 let S = JSON.parse(localStorage.getItem('todoPlantState')) || {
-  coins: 150, streak: 3, wateringCharges: 0, plantXp: 0, plantStage: 0,
+  coins: 150, streak: 3, lastActiveDate: null, tasksDoneToday: 0, wateringCharges: 0, plantXp: 0, plantStage: 0,
   equipped: { shoes: 0, shirt: 0, acc: -1, hat: -1 },
   owned: { shoes: [0], shirt: [0], acc: [], hat: [] },
   tasks: [
@@ -7,6 +7,9 @@ let S = JSON.parse(localStorage.getItem('todoPlantState')) || {
     { id: 2, text: 'Tugas Data Structure', date: '2026-06-11', done: false, gcal: false, info: ['Bikin logic AVL Tree', 'Buat visualisasi struct'] }
   ]
 };
+
+S.lastActiveDate = S.lastActiveDate || null;
+S.tasksDoneToday = Number.isFinite(S.tasksDoneToday) ? S.tasksDoneToday : 0;
 
 const genderDefaults = {
   female: { gender: 'female', hair: 'braid_bangs', hairColor: 'brown', outfit: 'white_top_redbow', bottom: 'pink_shorts', shoes: 'red_shoes', accessory: null },
@@ -209,12 +212,41 @@ function triggerCamera(taskId) {
       const t = S.tasks.find(x => x.id === taskId);
       if (t && !t.done) {
         t.done = true; S.coins += 20;
+        updateStreak();
         if (S.tasks.every(x => x.done === true)) S.wateringCharges += 1;
         saveState(); location.reload();
       }
     }
   };
   input.click();
+}
+
+function updateStreak() {
+  const now = new Date();
+  const formatDate = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  const today = formatDate(now);
+  const yesterdayDate = new Date(now);
+  yesterdayDate.setDate(now.getDate() - 1);
+  const yesterday = formatDate(yesterdayDate);
+  let streakIncreased = false;
+
+  if (S.lastActiveDate === today) {
+    S.tasksDoneToday += 1;
+  } else if (S.lastActiveDate === yesterday) {
+    S.streak += 1;
+    S.tasksDoneToday = 1;
+    S.lastActiveDate = today;
+    streakIncreased = true;
+  } else {
+    S.streak = 1;
+    S.tasksDoneToday = 1;
+    S.lastActiveDate = today;
+  }
+
+  if (streakIncreased && S.streak % 7 === 0) S.wateringCharges += 1;
+  saveState();
+  if (streakIncreased) showToast('🔥 Streak +1! Sekarang ' + S.streak + ' hari');
+  if (streakIncreased && S.streak % 7 === 0) showToast('🎉 ' + S.streak + ' hari streak! Bonus siram tanaman!');
 }
 
 function avatarSVG(shirtCol, shoesCol, hatOn, accOn) {
@@ -248,13 +280,21 @@ function renderAvatar(id) {
 function syncGlobalStats() {
   // Sync paksa dari localStorage (biar update saat ganti kostum)
   S = JSON.parse(localStorage.getItem('todoPlantState')) || S;
+  S.lastActiveDate = S.lastActiveDate || null;
+  S.tasksDoneToday = Number.isFinite(S.tasksDoneToday) ? S.tasksDoneToday : 0;
   
   const cCoin = document.getElementById('global-coin');
   const modalCoin = document.getElementById('avatar-modal-coin');
   const cWater = document.getElementById('global-water-charge');
   const cStreak = document.getElementById('global-streak');
+  const cTasksDoneToday = document.getElementById('tasks-done-today');
+  const cFire = document.getElementById('global-fire');
+  const streakFire = document.getElementById('streak-fire');
   if (cCoin) cCoin.textContent = S.coins;
   if (modalCoin) modalCoin.textContent = S.coins;
   if (cWater) cWater.textContent = S.wateringCharges;
   if (cStreak) cStreak.textContent = S.streak;
+  if (cTasksDoneToday) cTasksDoneToday.textContent = 'Tugas selesai hari ini: ' + S.tasksDoneToday;
+  if (cFire) cFire.classList.toggle('inactive', S.tasksDoneToday === 0);
+  if (streakFire) streakFire.classList.toggle('inactive', S.tasksDoneToday === 0);
 }
