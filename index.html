@@ -13,7 +13,7 @@
 
   <div class="scr" style="position: relative;">
     
-    <button onclick="goTo('customizeAvatar.html')" style="position: absolute; right: 20px; top: 15px; border: 2px solid var(--border-light); border-bottom-width: 4px; padding: 6px 14px; font-size: 13px; font-family: var(--font); font-weight: 900; background: var(--card-bg); border-radius: 20px; cursor: pointer; z-index: 100; color: var(--text-main);">
+    <button class="customize-trigger" onclick="openCustomizeModal()" type="button">
       ✏️ CUSTOMIZE
     </button>
 
@@ -26,11 +26,17 @@
       </div>
     </div>
 
-    <div class="avatar-box">
+    <div class="avatar-box profile-card">
+      <div class="profile-card-label">My little plant buddy</div>
       <svg class="avatar-svg" id="avatar-main" viewBox="0 0 110 180" preserveAspectRatio="xMidYMid meet"></svg>
       <div class="plant-btn-sm" onclick="goTo('Todoplant.html')" style="position:absolute; bottom:10px; right:10px; font-size:24px; background:#fff; padding:10px; border-radius:12px; cursor:pointer; border:2px solid var(--border-light); border-bottom-width:4px;">
         🌱
       </div>
+    </div>
+
+    <div class="avatar-chat" aria-label="Avatar chat">
+      <svg class="avatar-chat-image" id="avatar-chat" viewBox="0 0 110 180" preserveAspectRatio="xMidYMid meet"></svg>
+      <span>Hello</span>
     </div>
 
     <div class="tabs">
@@ -42,6 +48,49 @@
     <div class="task-scroll" id="task-list"></div>
     
     <button class="btn-add-main" onclick="goTo('sub/subscreen_creatingTodo.html')">+ Tambah Tugas Baru</button>
+  </div>
+</div>
+
+<div class="avatar-modal" id="avatar-modal" aria-hidden="true">
+  <div class="avatar-modal-panel" role="dialog" aria-modal="true" aria-labelledby="customize-title">
+    <div class="avatar-modal-heading">
+      <div>
+        <span class="eyebrow">STYLE STUDIO</span>
+        <h2 id="customize-title">Customize Avatar</h2>
+      </div>
+      <div class="avatar-modal-heading-actions">
+        <div class="avatar-currency">🪙 <span id="avatar-modal-coin">0</span></div>
+        <button class="icon-close" onclick="closeCustomizeModal()" type="button" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div class="avatar-large-preview">
+      <svg class="avatar-svg avatar-modal-svg" id="avatar-customize" viewBox="0 0 110 180" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="avatar-category-tabs" role="tablist">
+      <button class="avatar-category-tab active" data-category="hair" type="button">Hair</button>
+      <button class="avatar-category-tab" data-category="outfit" type="button">Outfit</button>
+      <button class="avatar-category-tab" data-category="bottom" type="button">Bottom</button>
+      <button class="avatar-category-tab" data-category="shoes" type="button">Shoes</button>
+      <button class="avatar-category-tab" data-category="accessory" type="button">Accessory</button>
+    </div>
+    <div class="avatar-options" id="avatar-options"></div>
+    <div class="avatar-modal-actions">
+      <button class="avatar-action cancel" onclick="closeCustomizeModal()" type="button">Cancel</button>
+      <button class="avatar-action save" onclick="saveAvatar()" type="button">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="avatar-purchase-modal" id="avatar-purchase-modal" aria-hidden="true">
+  <div class="avatar-purchase-card" role="dialog" aria-modal="true" aria-labelledby="avatar-purchase-title">
+    <span class="eyebrow">NEW ITEM</span>
+    <h3 id="avatar-purchase-title">Buy this item?</h3>
+    <p id="avatar-purchase-message">Make this look part of your avatar.</p>
+    <div class="avatar-purchase-price">🪙 <strong id="avatar-purchase-price">0</strong></div>
+    <div class="avatar-modal-actions">
+      <button class="avatar-action cancel" onclick="cancelAvatarPurchase()" type="button">Cancel</button>
+      <button class="avatar-action save" onclick="confirmAvatarPurchase()" type="button">Buy</button>
+    </div>
   </div>
 </div>
 
@@ -61,7 +110,7 @@
     `).join('');
   }
   document.addEventListener('DOMContentLoaded', () => {
-    renderAvatar('avatar-main'); syncGlobalStats(); renderTasks();
+    renderAvatar('avatar-main'); renderAvatar('avatar-chat'); syncGlobalStats(); renderTasks();
   });
 </script>
 </body>
