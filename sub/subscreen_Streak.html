@@ -16,15 +16,16 @@
     </div>
 
     <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 80px;">
-      <div class="anim-fire" style="font-size: 100px; margin-bottom: 20px;">🔥</div>
+      <div id="streak-fire" class="anim-fire" style="font-size: 100px; margin-bottom: 20px;">🔥</div>
       <div style="font-size: 26px; font-weight: 900; color: var(--text-main);">
-        <span id="strk"></span> Days
+        <span id="strk"></span> Task
       </div>
+      <div id="tasks-done-today" style="margin-top:10px; color:var(--text-muted); font-size:14px; font-weight:800;"></div>
     </div>
 
   </div>
 </div>
 <script src="../script.js"></script>
-<script>document.getElementById('strk').textContent = S.streak;</script>
+<script>syncGlobalStats(); document.getElementById('strk').textContent = S.tasksDoneToday;</script>
 </body>
 </html>
