@@ -18,4 +18,5 @@ We're creating a To-Do List application designed to boost productivity through a
 ##  Tech Stack
 - HTML
 - CSS
-- [HAPUS TEKS INI: Tambahkan JavaScript atau bahasa lain kalau ada]
+- Javascript
+
